@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "system-ui", "sans-serif";
+
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+
+  --color-messenger-blue: #0084ff;
+  --color-messenger-dark-blue: #005cbf;
+  --color-messenger-bg: #0a0a0a;
+  --color-messenger-sidebar: #121212;
+  --color-messenger-card: #1e1e1e;
+  --color-messenger-input: #2a2a2a;
+  --color-messenger-border: rgba(255, 255, 255, 0.08);
+  --color-messenger-text: #f0f0f0;
+  --color-messenger-muted: #8e8e93;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes springIn {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+
+    70% {
+      transform: scale(1.02);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes typingDot {
+
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+    }
+
+    30% {
+      transform: translateY(-6px);
+    }
+  }
+
+  --animate-fade-in: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-spring-in: springIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-typing-dot: typingDot 1s infinite;
+}
+
+/* ─── Global Resets ─────────────────────────────────────────── */
+
+
+:root {
+  --sidebar-width: 360px;
+  --glass-bg: rgba(18, 18, 18, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at top right, #1a1a1a, #0a0a0a);
+  color: var(--color-messenger-text);
+  height: 100dvh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+}
+
+#root {
+  height: 100dvh;
+  display: flex;
+}
+
+/* ─── Glassmorphism Utilities ──────────────────────────────── */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-header {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 40;
+}
+
+/* ─── Scrollbar Styling ────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Message Bubbles ─────────────────────────────────────── */
+.bubble-sent {
+  background: linear-gradient(135deg, #0084ff 0%, #00a0ff 100%);
+  color: white;
+  border-radius: 20px;
+  border-bottom-right-radius: 4px;
+  padding: 0.6rem 1.1rem;
+  max-width: 85%;
+  box-shadow: 0 4px 12px rgba(0, 132, 255, 0.2);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.bubble-received {
+  background-color: var(--color-messenger-card);
+  color: var(--color-messenger-text);
+  border-radius: 20px;
+  border-bottom-left-radius: 4px;
+  padding: 0.6rem 1.1rem;
+  max-width: 85%;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* ─── Typing Indicator Dots ─────────────────────────────── */
+.typing-dots span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #0084ff;
+  margin: 0 2px;
+  animation: typingDot 1s infinite;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* ─── Conversation Item ─────────────────────────────── */
+.conv-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0.125rem 0.5rem;
+}
+
+.conv-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+
+.conv-item.active {
+  background-color: rgba(0, 132, 255, 0.15);
+}
+
+.conv-item.active::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 20%;
+  bottom: 20%;
+  width: 4px;
+  background: #0084ff;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 10px rgba(0, 132, 255, 0.5);
+}
+
+/* ─── Auth Card ─────────────────────────────────────────── */
+.auth-card {
+  background: rgba(25, 25, 25, 0.8);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  border-radius: 24px;
+  animation: springIn 0.5s ease-out;
+}
+
+.input-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  color: white;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.input-pill:focus {
+  border-color: #0084ff;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 4px rgba(0, 132, 255, 0.1);
+  outline: none;
+}
+
+/* ─── Status Indicator ─────────────────────────────────── */
+.status-glow {
+  box-shadow: 0 0 8px #22c55e;
+}
